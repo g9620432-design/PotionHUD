@@ -54,3 +54,18 @@ loom {
         }
     }
 }
+
+// The mod icon is stored as text (tools/icon.png.base64) because binary blobs are awkward in
+// review diffs; this task materialises it into the resources before they are processed.
+tasks.register('generateIcon') {
+    def source = file('tools/icon.png.base64')
+    def target = file('src/main/resources/assets/potionhudx/icon.png')
+    inputs.file source
+    outputs.file target
+    doLast {
+        target.parentFile.mkdirs()
+        target.bytes = source.text.replaceAll('\\s', '').decodeBase64()
+    }
+}
+processResources.dependsOn 'generateIcon'
+tasks.named('sourcesJar') { dependsOn 'generateIcon' }
