@@ -1,0 +1,10 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.z1kzak.potionhud.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": ["GuiEffectsMixin"],
+  "injectors": {
+    "defaultRequire": 0
+  }
+}
