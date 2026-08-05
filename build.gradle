@@ -1,65 +1,11 @@
-plugins {
-    id 'fabric-loom' version '1.14.10'
-    id 'maven-publish'
-}
-
-version = project.mod_version
-group = project.maven_group
-
-base {
-    archivesName = project.archives_base_name + "-fabric-" + project.minecraft_version
-}
-
-repositories {
-    mavenCentral()
-    maven { name = 'Fabric'; url = 'https://maven.fabricmc.net/' }
-}
-
-dependencies {
-    minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings loom.officialMojangMappings()
-    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-}
-
-processResources {
-    inputs.property 'version', project.version
-    filteringCharset 'UTF-8'
-    filesMatching('fabric.mod.json') {
-        expand 'version': project.version
-    }
-}
-
-tasks.withType(JavaCompile).configureEach {
-    it.options.encoding = 'UTF-8'
-    it.options.release = 21
-}
-
-java {
-    withSourcesJar()
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
-}
-
-jar {
-    from('LICENSE') {
-        rename { "${it}_${project.base.archivesName.get()}" }
-    }
-}
-
-loom {
-    runs {
-        client {
-            programArgs '--width', '1280', '--height', '720'
-        }
-    }
-}
+// Root project holds shared settings — every Minecraft version has its own module, and all of
+// them compile the same sources from common/ plus their own compat classes.
 
 // The mod icon is stored as text (tools/icon.png.base64) because binary blobs are awkward in
-// review diffs; this task materialises it into the resources before they are processed.
+// review diffs; this single task materialises it for every module.
 tasks.register('generateIcon') {
     def source = file('tools/icon.png.base64')
-    def target = file('src/main/resources/assets/potionhudx/icon.png')
+    def target = file('common/src/main/resources/assets/potionhudx/icon.png')
     inputs.file source
     outputs.file target
     doLast {
@@ -67,5 +13,3 @@ tasks.register('generateIcon') {
         target.bytes = source.text.replaceAll('\\s', '').decodeBase64()
     }
 }
-processResources.dependsOn 'generateIcon'
-tasks.named('sourcesJar') { dependsOn 'generateIcon' }

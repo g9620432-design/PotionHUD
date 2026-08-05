@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "potionhudx",
+  "version": "${version}",
+  "name": "PotionHUD X",
+  "description": "Potion effect HUD with 5 render modes (Classic, Compact, Bar, Liquid Glass, Neon) and a deep in-game customization menu.",
+  "authors": [
+    "Z1kZak"
+  ],
+  "contact": {
+    "sources": "https://github.com/g9620432-design/PotionHUD",
+    "issues": "https://github.com/g9620432-design/PotionHUD/issues"
+  },
+  "license": "MIT",
+  "icon": "assets/potionhudx/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "dev.z1kzak.potionhud.PotionHudX"
+    ]
+  },
+  "mixins": [
+    "potionhudx.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": "${loader_range}",
+    "minecraft": "${mc_range}",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
