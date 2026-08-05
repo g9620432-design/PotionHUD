@@ -61,30 +61,6 @@ Fabric · Minecraft **1.21.4 – 1.21.11** · Java 21 · только клиен
 
 Все настройки лежат в `config/potionhudx.json` — файл можно править руками и передавать другим.
 
-## Установка
-
-| Версия Minecraft | Файл | Требуется |
-|---|---|---|
-| 1.21.4 – 1.21.5 | `potionhudx-fabric-1.21.5-*.jar` | Fabric Loader 0.16+, Fabric API |
-| 1.21.6 – 1.21.8 | `potionhudx-fabric-1.21.8-*.jar` | Fabric Loader 0.16+, Fabric API |
-| 1.21.9 – 1.21.10 | `potionhudx-fabric-1.21.10-*.jar` | Fabric Loader 0.17+, Fabric API |
-| 1.21.11 | `potionhudx-fabric-1.21.11-*.jar` | Fabric Loader 0.18+, Fabric API |
-
-Скопировать нужный jar в папку `mods`. На сервере ставить ничего не нужно.
-
-## Сборка
-
-```bash
-./gradlew build                              # соберёт все версии сразу
-./gradlew :fabric-1.21.11:build              # только одну
-./gradlew :fabric-1.21.4-1.21.5:runClient    # тестовый клиент нужной версии
-```
-
-Нужен JDK 21. Готовые jar'ы появятся в `fabric-<версии>/build/libs/`.
-
-> В репозитории нет `gradle/wrapper/gradle-wrapper.jar` (бинарник). Если его нет локально —
-> один раз выполните `gradle wrapper --gradle-version 9.2.1`, дальше работает `./gradlew`.
-
 ## Структура
 
 Общий код лежит в `common/`, а версионные различия (класс идентификатора, матричный стек,
